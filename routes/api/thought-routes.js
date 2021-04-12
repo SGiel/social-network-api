@@ -11,7 +11,7 @@ const {
 
 // /api/thoughts
 router 
-  .router('/')
+  .route('/')
   .get(getAllThoughts)
 
 // /api/thoughts/<userId>

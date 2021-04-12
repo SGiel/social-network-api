@@ -1,6 +1,6 @@
 const { User } = require('../models');
 
-const UserController = {
+const userController = {
   // get all users
   // will serve as the callback function for the GET /api/users route
   getAllUsers(req, res) {
@@ -54,6 +54,7 @@ const UserController = {
   // we destructured the body out of the Express.js req object because we 
   // don't need to interface with any of the other data it provides
   createUser({ body }, res) {
+    console.log("this is the body", body)
     User.create(body)
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.status(400).json(err));

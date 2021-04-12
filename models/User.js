@@ -7,13 +7,13 @@ const UserSchema = new Schema(
     username: {
       type: String,
       required: 'You need to provide a name!',
-      unique: 'That username is already taken!',
+      // unique: 'That username is already taken!',
       trim: true
     },
     email: {
       type: String,
       required: 'You need to provide an email!',
-      unique: 'That email is already taken!',
+      // unique: 'That email is already taken!',
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please include a valid email address!']
     },
     createdAt: {
