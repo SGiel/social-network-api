@@ -7,6 +7,13 @@
   
   This project utilizes Node.js, the MongoDB database package, Mongoose package for models and Express package. The GET, POST, PUT and DELETE routes were illustrated in Insomnia Core.
 
+
+## Installation
+  Clone the repository to your terminal. Intall Node.js and MongoDB to your terminal. Install Mongoose, Sequelize, Express to the root of your project directory. To start the server to run the application, type npm start from the root of your directory. You can use Insomnia Core to run the Get, Post, Put and Delete methods on the data.
+
+## Usage
+  [Link to Social Network API  walk-through video](https://drive.google.com/file/d/1buCVRwGDz6m-R4o1z1zO3sq41ZahGIbW/view?usp=sharing) 
+
   #### API Routes
   - /api/users
     * GET all users
@@ -29,22 +36,7 @@
   - /api/thoughts/:thoughtId/reactions
     * POST to create a reaction stored in a single thought's reactions array
     * DELETE to pull and remove a reaction by the reaction's reactionId value
-
-## Installation
-  Clone the repository to your terminal. Intall Node.js and MongoDB to your terminal. Install Mongoose, Sequelize, Express to the root of your project directory. To start the server to run the application, type npm start from the root of your directory. You can use Insomnia Core to run the Get, Post, Put and Delete methods on the data.
-
-## Screenshots of terminal application 
-
-![Screenshot of E-Commerce Back-End with a GET on products in Insomnia Core](./assets/images/Get-on-products-screen-shot.png)
-
-![Screenshot of E-Commerce Back-End with a POST on products in Insomnia Core](./assets/images/post-on-products-screen-shot.png)
-
-![Screenshot of E-Commerce Back-End with a GET on product7 in Insomnia Core](./assets/images/get-on-product-7-screen-shot.png)
-
-
-## Usage
-  [Link to Social Network API  walk-through video](https://drive.google.com/file/d/1buCVRwGDz6m-R4o1z1zO3sq41ZahGIbW/view?usp=sharing) 
-
+    
 ## License  
   
 Licensed under the The MIT License (the "License");
