@@ -77,41 +77,41 @@ const userController = {
   },
   
   // delete user by id
-  deleteUser({ params }, res) {
-    User.findOneAndDelete(
-      { _id: params.id })
-      .then(dbUserData => {
-        console.log("this is dbUserData ", dbUserData.thoughts)
-
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No user found with this id!' });
-          return;
-        }
-        res.json(dbUserData);
-      })
-      .catch(err => res.status(400).json(err));
-  },
   // deleteUser({ params }, res) {
   //   User.findOneAndDelete(
   //     { _id: params.id })
   //     .then(dbUserData => {
   //       console.log("this is dbUserData ", dbUserData.thoughts)
+
   //       if (!dbUserData) {
   //         res.status(404).json({ message: 'No user found with this id!' });
   //         return;
   //       }
-  //       if (dbUserData.thoughts && dbUserData.thoughts > 0) {
-  //         return Thought.findOneAndUpdate(
-  //           { },
-  //           { $pull: { comments: {$in: dbUserData.thoughts } } },
-  //           { multi: true , new: true}
-  //         )}
-  //     })
-  //     .then(dbThoughtData => {
-  //       res.json(dbThoughtData);
+  //       res.json(dbUserData);
   //     })
   //     .catch(err => res.status(400).json(err));
   // },
+  deleteUser({ params }, res) {
+    User.findOneAndDelete(
+      { _id: params.id })
+      .then(dbUserData => {
+        if (!dbUserData) {
+          res.status(404).json({ message: 'No user found with this id!' });
+          return;
+        }
+        if (dbUserData.thoughts && dbUserData.thoughts.length > 0) {
+          console.log("this is dbUserData ", dbUserData.thoughts)
+          return Thought.deleteMany(
+            { _id: {$in: dbUserData.thoughts } } 
+          )
+        } else return dbUserData;
+      })
+      .then(dbThoughtData => {
+        console.log("dbThoughtData", dbThoughtData)
+        res.json(dbThoughtData);
+      })
+      .catch(err => res.status(400).json(err));
+  },
 
   addFriend({ params }, res) {
     console.log("addFriend params ", params)
