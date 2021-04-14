@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 const userController = {
   // get all users
@@ -78,8 +78,11 @@ const userController = {
   
   // delete user by id
   deleteUser({ params }, res) {
-    User.findOneAndDelete({ _id: params.id })
+    User.findOneAndDelete(
+      { _id: params.id })
       .then(dbUserData => {
+        console.log("this is dbUserData ", dbUserData.thoughts)
+
         if (!dbUserData) {
           res.status(404).json({ message: 'No user found with this id!' });
           return;
@@ -87,7 +90,68 @@ const userController = {
         res.json(dbUserData);
       })
       .catch(err => res.status(400).json(err));
+  },
+  // deleteUser({ params }, res) {
+  //   User.findOneAndDelete(
+  //     { _id: params.id })
+  //     .then(dbUserData => {
+  //       console.log("this is dbUserData ", dbUserData.thoughts)
+  //       if (!dbUserData) {
+  //         res.status(404).json({ message: 'No user found with this id!' });
+  //         return;
+  //       }
+  //       if (dbUserData.thoughts && dbUserData.thoughts > 0) {
+  //         return Thought.findOneAndUpdate(
+  //           { },
+  //           { $pull: { comments: {$in: dbUserData.thoughts } } },
+  //           { multi: true , new: true}
+  //         )}
+  //     })
+  //     .then(dbThoughtData => {
+  //       res.json(dbThoughtData);
+  //     })
+  //     .catch(err => res.status(400).json(err));
+  // },
+
+  addFriend({ params }, res) {
+    console.log("addFriend params ", params)
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $push: { friends: params.friendId } } ,
+      { new: true, runValidators: true }
+    )
+      .then(dbUserData => {
+        if (!dbUserData) {
+          res.status(404).json({ message: 'No user found with this id!' });
+          return;
+        }
+        console.log("addFriend dbUserData ", dbUserData)
+        res.json(dbUserData);
+      })
+      .catch(err => res.json(err));
+  },
+
+  // remove friend
+  // using the MongoDB $pull operator to remove the specific friend from the friends array
+  // where the friendId matches the value of params.friendId passed in from the route.
+  removeFriend({ params }, res) {
+    console.log("removeFriend params ", params)
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: params.friendId } },
+      { new: true }
+    )
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id!' });
+        return;
+      }
+      console.log("removeFriend dbUserData ", dbUserData)
+      res.json(dbUserData);
+    })
+    .catch(err => res.json(err));
   }
+
 }
 
 module.exports = userController;

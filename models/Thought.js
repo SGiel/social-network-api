@@ -15,7 +15,7 @@ const ReactionSchema = new Schema(
       minLength: 1,
       maxLength: 280
     },
-    writtenBy: {
+    reactionBy: {
       type: String,
       required: true,
       trim: true

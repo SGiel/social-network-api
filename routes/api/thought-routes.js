@@ -13,11 +13,18 @@ const {
 router 
   .route('/')
   .get(getAllThoughts)
+  .post(addThought)
 
-// /api/thoughts/<userId>
-router
-  .route('/:userId')
-  .post(addThought);
+  
+  // /api/thoughts/<userId>
+  // router
+  //   .route('/:userId')
+  //   .post(addThought);
+  router
+  .route('/:thoughtId')
+  .get(getThoughtById)
+  .put(updateThought)
+  .delete(removeThought);
   
   // /api/thoughts/<userId>/<thoughtId>
   // Remember that the callback function of a route method has req and res as parameters, so we don't have to
@@ -25,18 +32,16 @@ router
   
   // This is a PUT route, instead of a POST, because technically we're not creating a new reactuib resource. 
   // Instead, we're just updating the existing thought resource
+  
+  // router
+  // .route('/:userId/:thoughtId')
+  
   router
-    .route('/:userId/:thoughtId')
-    .get(getThoughtById)
-    .put(updateThought)
-    .delete(removeThought);
-    
-  router
-    .route('/:userId/:thoughtId/reactions')
+    .route('/:thoughtId/reactions')
     .put(addReaction);
 
   router
-    .route('/:userId/:thoughtId/reactions/:reactionId')
+    .route('/:thoughtId/reactions/:reactionId')
     .delete(removeReaction);
 
 module.exports = router;
